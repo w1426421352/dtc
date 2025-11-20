@@ -1,0 +1,48 @@
+name: Build dtc (Device Tree Compiler)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 使用 Ubuntu 环境
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # 获取代码
+
+      - name: Set up dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential bison flex git  # 安装编译所需工具
+
+      - name: Clone dtc repository
+        run: |
+          git clone https://github.com/lbmeng/dtc.git
+          cd dtc
+
+      - name: Build dtc
+        run: |
+          cd dtc
+          make
+
+      - name: Verify dtc build
+        run: |
+          cd dtc
+          if [ -f "dtc" ]; then
+            echo "dtc build successful"
+          else
+            echo "dtc build failed"
+            exit 1
+          fi
+
+      - name: Upload build artifacts (optional)
+        uses: actions/upload-artifact@v2
+        with:
+          name: dtc-binary
+          path: dtc  # 上传编译后的 dtc 文件

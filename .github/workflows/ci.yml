@@ -47,8 +47,8 @@ jobs:
             exit 1
           fi
 
-      - name: Upload build artifacts (optional)
-        uses: actions/upload-artifact@v2
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3  # 更新为 v3
         with:
           name: dtc-binary
           path: dtc  # 上传编译后的 dtc 文件

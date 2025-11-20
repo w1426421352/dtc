@@ -3,10 +3,16 @@ name: Build dtc (Device Tree Compiler)
 on:
   push:
     branches:
-      - main
+      - main  # 依然支持推送触发
   pull_request:
     branches:
-      - main
+      - main  # 依然支持拉取请求触发
+  workflow_dispatch:  # 添加手动触发
+    inputs:
+      message:
+        description: 'Trigger build'
+        required: false
+        default: 'Manual build'
 
 jobs:
   build:

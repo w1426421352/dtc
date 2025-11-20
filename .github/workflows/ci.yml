@@ -48,7 +48,7 @@ jobs:
           fi
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3  # 更新为 v3
+        uses: actions/upload-artifact@v4  # 更新为 v4
         with:
           name: dtc-binary
           path: dtc  # 上传编译后的 dtc 文件
